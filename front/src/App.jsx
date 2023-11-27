@@ -1,6 +1,6 @@
 import Card from "./components/card/Card";
-import Cards from "./components/cards/Cards";
-import SearchBar from "./components/searchBar/SearchBar";
+import Cards from "./components/Cards";
+import SearchBar from "./components/SearchBar";
 import characters from "../utils/data";
 
 function App() {
