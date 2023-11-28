@@ -1,6 +1,6 @@
-import Card from "./card/Card";
+import Card from "../card/Card";
 
-export default function Cards({ characters }) {
+export default function Cards({ characters, onClose }) {
   // props -> {characters : [{},{},{}]}
   return (
     <div>
@@ -15,9 +15,7 @@ export default function Cards({ characters }) {
             gender={gender}
             origin={origin}
             image={image}
-            onClose={() =>
-              window.alert(`Emulamos que se cierra la card de ${name}`)
-            }
+            onClose={onClose}
           />
         )
       )}
