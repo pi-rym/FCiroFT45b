@@ -1,7 +1,10 @@
-import Nav from "./components/nav/Nav";
-import Cards from "./components/cards/Cards";
 import { useState } from "react";
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
+import Nav from "./components/nav/Nav";
+import Home from "./components/home/Home";
+import About from "./components/about/About";
+import Detail from "./components/detail/Detail";
 
 function App() {
   // Creacion de estados
@@ -15,7 +18,6 @@ function App() {
     const url = `${URL}/${input}?key=${apiKey}`;
     // url -> https://rym2.up.railway.app/api/character/2?key=henrystaff
     // setCharacters([...characters, { nuevoPersonaje }]);
-
     // agregando axios
     axios(url)
       .then(({ status, data }) => {
@@ -50,7 +52,24 @@ function App() {
   return (
     <div className="App">
       <Nav onSearch={onSearch} />
-      <Cards characters={characters} onClose={onClose} />
+      <Routes>
+        <Route
+          path="/home"
+          element={<Home characters={characters} onClose={onClose} />}
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/detail">
+          <Route
+            index
+            element={
+              <div>
+                <h1>DETAIL</h1>
+              </div>
+            }
+          />
+          <Route path=":id" element={<Detail />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

@@ -1,12 +1,14 @@
 import SearchBar from "../searchBar/SearchBar";
-export default function Nav({ onSearch}) {
-    // propos -> { onSearch -> fn -> (input) => {sdfsd} }
+import MyNavLink from "../myNavLink/MyNavLink";
+import style from "./Nav.module.css"
+export default function Nav({ onSearch }) {
+  // propos -> { onSearch -> fn -> (input) => {sdfsd} }
   return (
-    <div>
+    <nav className={style.navBar}>
       <h1>Hola, soy el Nav 😄</h1>
-      <SearchBar
-        onSearch={onSearch}
-      />
-    </div>
+      <MyNavLink name="Home" />
+      <MyNavLink name="About" />
+      <SearchBar onSearch={onSearch} />
+    </nav>
   );
 }

@@ -1,0 +1,13 @@
+.navBar {
+  background-color: aqua;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  margin: 2px;
+  align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
