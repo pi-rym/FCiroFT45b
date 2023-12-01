@@ -1,0 +1,25 @@
+.form {
+  background-color: rgb(215, 105, 249);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  color: rgba(5, 12, 56, 0.528);
+}
+
+.button {
+  background-color: aqua;
+}
+
+.button:hover {
+  background-color: black;
+  color: aqua;
+  cursor: pointer;
+}

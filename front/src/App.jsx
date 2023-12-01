@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Nav from "./components/nav/Nav";
 import Home from "./components/home/Home";
 import About from "./components/about/About";
 import Detail from "./components/detail/Detail";
+import Form from "./components/form/Form";
+const EMAIL = "f@f.com";
+const PASSWORD = "hola123";
 
 function App() {
   // Creacion de estados
   const [characters, setCharacters] = useState([]);
-  const navigate = useNavigate
+  const [access, setAccess] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const URL = `https://rym2.up.railway.app/api/character`;
   const apiKey = "henrystaff";
   const onSearch = (input) => {
@@ -34,15 +39,25 @@ function App() {
     setCharacters(filtered);
   };
 
+  const login = ({ email, password }) => {
+    if (email === EMAIL && password === PASSWORD) {
+      setAccess(true);
+    }
+  };
+
   //* Si quieren que navegue a Home cuando se monte la app
-  // useEffect(() => { 
-  //   navigate("/home")
-  // },[])
+  useEffect(() => {
+    if (access) {
+      navigate("/home");
+    } else {
+      navigate("/login");
+    }
+  }, [access]);
   return (
     <div className="App">
-      <Nav onSearch={onSearch} />
-      <Routes>
+      {pathname !== "/login" && <Nav onSearch={onSearch} />}
 
+      <Routes>
         <Route
           path="/home"
           element={<Home characters={characters} onClose={onClose} />}
@@ -59,6 +74,7 @@ function App() {
           />
           <Route path=":id" element={<Detail />} />
         </Route>
+        <Route path="/login" element={<Form login={login} />} />
       </Routes>
     </div>
   );

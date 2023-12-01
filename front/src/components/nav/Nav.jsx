@@ -9,6 +9,7 @@ export default function Nav({ onSearch }) {
       <MyNavLink name="Home" />
       <MyNavLink name="About" />
       <SearchBar onSearch={onSearch} />
+      <MyNavLink name="Login" />
     </nav>
   );
 }
