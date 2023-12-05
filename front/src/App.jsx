@@ -6,6 +6,7 @@ import Home from "./components/home/Home";
 import About from "./components/about/About";
 import Detail from "./components/detail/Detail";
 import Form from "./components/form/Form";
+import Favorites from "./components/favorites/Favorites";
 const EMAIL = "f@f.com";
 const PASSWORD = "hola123";
 
@@ -40,9 +41,10 @@ function App() {
   };
 
   const login = ({ email, password }) => {
-    if (email === EMAIL && password === PASSWORD) {
+    /* if (email === EMAIL && password === PASSWORD) {
       setAccess(true);
-    }
+    } */
+    setAccess(true);
   };
 
   //* Si quieren que navegue a Home cuando se monte la app
@@ -75,6 +77,7 @@ function App() {
           <Route path=":id" element={<Detail />} />
         </Route>
         <Route path="/login" element={<Form login={login} />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </div>
   );
