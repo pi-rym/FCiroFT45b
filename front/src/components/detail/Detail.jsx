@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 const Detail = () => {
   const { id } = useParams();
   const [character, setCharacter] = useState({});
-  const URL = `https://rym2.up.railway.app/api/character`;
+  // const URL = `https://rym2.up.railway.app/api/character`;
+  const URL = `http://localhost:3001/rickandmorty/character/${id}`
   const apiKey = "henrystaff";
 
   function onSearch() {
     const urlCharacter = `${URL}/${id}?key=${apiKey}`;
-    axios(urlCharacter)
+    axios(URL)
       .then(({ status, data }) => {
         if (data.name) setCharacter(data);
         else {

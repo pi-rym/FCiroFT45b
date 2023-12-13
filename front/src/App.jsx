@@ -16,12 +16,13 @@ function App() {
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const URL = `https://rym2.up.railway.app/api/character`;
+  // const URL = "https://rym2.up.railway.app/api/character";
+  const URL = `http://localhost:3001/rickandmorty/character`;
   const apiKey = "henrystaff";
   const onSearch = (input) => {
-    const url = `${URL}/${input}?key=${apiKey}`;
+    // const url = `${URL}/${input}?key=${apiKey}`;
     // url -> https://rym2.up.railway.app/api/character/2?key=henrystaff
-    axios(url)
+    axios(`${URL}/${input}`)
       .then(({ status, data }) => {
         if (status >= 200 && status < 400) {
           if (data.name) {
