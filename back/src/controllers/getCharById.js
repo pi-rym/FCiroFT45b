@@ -15,6 +15,7 @@ function getCharById(res, id) {
           gender: character.gender,
           species: character.species,
           origin: character.origin,
+          location: character.location,
           image: character.image,
         };
         res.write(JSON.stringify(personaje));
