@@ -3,10 +3,8 @@ require("dotenv").config();
 const { PORT, HOST } = process.env;
 const http = require("http");
 const characters = require("./utils/data"); // -> [{},{}]
-const headers = {
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Origin": "*",
-};
+const getCharById = require("./controllers/getCharById")
+const {headers} = require("./utils/reusable")
 
 http
   .createServer(function (req, res) {
@@ -14,12 +12,8 @@ http
     if (url.includes("/rickandmorty/character")) {
       // url -> /rickandmorty/character/42
       // url.split("/") -> ["", "rickandmorty", "character", "42"]
-      "hola".charAt(1); // Array - like "hola"[0]
       const id = url.split("/").at(-1);
-      const character = characters.find((char) => char.id === Number(id));
-      res.writeHead(200, headers);
-      res.write(JSON.stringify(character));
-      res.end();
+      getCharById(res, id)
     } else {
       res.writeHead(404, headers);
       const obj = {
