@@ -18,7 +18,6 @@ function App() {
   const { pathname } = useLocation();
   // const URL = "https://rym2.up.railway.app/api/character";
   const URL = `http://localhost:3001/rickandmorty/character`;
-  const apiKey = "henrystaff";
   const onSearch = (input) => {
     // const url = `${URL}/${input}?key=${apiKey}`;
     // url -> https://rym2.up.railway.app/api/character/2?key=henrystaff
