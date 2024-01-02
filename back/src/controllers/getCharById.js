@@ -2,7 +2,36 @@ const axios = require("axios");
 const { urlCharacterId } = require("../utils/reusable");
 const { headers } = require("../utils/reusable");
 
-function getCharById(res, id) {
+//? con express
+
+function getCharById(req, res) {
+  const { id } = req.params;
+  axios(urlCharacterId(id))
+    .then((res) => res.data)
+    .then((character) => {
+      if (character.name) {
+        const personaje = {
+          id: id,
+          name: character.name,
+          status: character.status,
+          gender: character.gender,
+          species: character.species,
+          origin: character.origin,
+          location: character.location,
+          image: character.image,
+        };
+        res.json(personaje);
+      } else {
+        res.status(404).send("Character not found");
+      }
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+}
+
+//? con web server
+/* function getCharById(res, id) {
   axios(urlCharacterId(id))
     .then((res) => res.data)
     .then((character) => {
@@ -29,7 +58,7 @@ function getCharById(res, id) {
       res.write(JSON.stringify({ message: err.message }));
       res.end();
     });
-}
+} */
 
 // then retorna una nueva promesa
 // como?

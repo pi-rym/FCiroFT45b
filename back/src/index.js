@@ -1,10 +1,43 @@
 require("dotenv").config();
 // console.log(process.env) -> { PORT: 3001, HOST: "localhost" }
+const express = require("express")
 const { PORT, HOST } = process.env;
-const http = require("http");
-const characters = require("./utils/data"); // -> [{},{}]
+const router = require("./routes/index")
 const getCharById = require("./controllers/getCharById")
-const {headers} = require("./utils/reusable")
+const { headers } = require("./utils/reusable")
+
+// ? CON EXPRESS
+const server = express()
+
+//? mioddleware para poder leer el req.body
+server.use(express.json())
+
+//? agregando headers
+/* server.use((req, res, next) => {
+  res.header(headers)
+  next()
+}) */
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+
+//? usando router
+server.use("/rickandmorty", router)
+//
+server.listen(PORT, HOST, function () {
+  console.log(`Server listening on port: ${PORT}`);
+});
+
+
+//? Con HTTP -> WEB SERVER
+/* const http = require("http");
 
 http
   .createServer(function (req, res) {
@@ -25,4 +58,5 @@ http
   })
   .listen(PORT, HOST, function () {
     console.log(`Server listening on port: ${PORT}`);
-  });
+  }); */
+
