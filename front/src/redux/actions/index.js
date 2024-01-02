@@ -1,17 +1,28 @@
+import axios from "axios";
 import { ADD_FAV, REMOVE_FAV, ORDER, FILTER, RESET } from "./types";
 
-export function addFav(character) {
-  // character -> {name, genre}
-  return {
-    type: ADD_FAV,
-    payload: character,
+//? Aca se ve la utilidad del middleware thunk, ya que, permite flujo async
+export const addFav = (character) => {
+  const endpoint = "http://localhost:3001/rickandmorty/fav";
+  return (dispatch) => {
+    axios.post(endpoint, character).then(({ data }) => {
+      return dispatch({
+        type: ADD_FAV,
+        payload: data,
+      });
+    });
   };
-}
+};
 
 export const removeFav = (id) => {
-  return {
-    type: REMOVE_FAV,
-    payload: id,
+  const endpoint = "http://localhost:3001/rickandmorty/fav/" + id;
+  return (dispatch) => {
+    axios.delete(endpoint).then(({ data }) => {
+      return dispatch({
+        type: REMOVE_FAV,
+        payload: data,
+      });
+    });
   };
 };
 
@@ -30,9 +41,8 @@ export function orderCards(order) {
   };
 }
 
-
-export function reset() { 
+export function reset() {
   return {
-    type: RESET
-  }
+    type: RESET,
+  };
 }

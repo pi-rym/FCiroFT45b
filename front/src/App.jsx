@@ -7,8 +7,6 @@ import About from "./components/about/About";
 import Detail from "./components/detail/Detail";
 import Form from "./components/form/Form";
 import Favorites from "./components/favorites/Favorites";
-const EMAIL = "f@f.com";
-const PASSWORD = "hola123";
 
 function App() {
   // Creacion de estados
@@ -17,11 +15,11 @@ function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   // const URL = "https://rym2.up.railway.app/api/character";
-  const URL = `http://localhost:3001/rickandmorty/character`;
+  const URL = `http://localhost:3001/rickandmorty`;
   const onSearch = (input) => {
     // const url = `${URL}/${input}?key=${apiKey}`;
     // url -> https://rym2.up.railway.app/api/character/2?key=henrystaff
-    axios(`${URL}/${input}`)
+    axios(`${URL}/character/${input}`)
       .then(({ status, data }) => {
         if (status >= 200 && status < 400) {
           if (data.name) {
@@ -44,7 +42,9 @@ function App() {
     /* if (email === EMAIL && password === PASSWORD) {
       setAccess(true);
     } */
-    setAccess(true);
+    axios(`${URL}/login?email=${email}&password=${password}`)
+      .then((res) => res.data.access)
+      .then((access) => setAccess(true) && navigate("/home"));
   };
 
   //* Si quieren que navegue a Home cuando se monte la app
