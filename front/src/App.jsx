@@ -16,7 +16,8 @@ function App() {
   const { pathname } = useLocation();
   // const URL = "https://rym2.up.railway.app/api/character";
   const URL = `http://localhost:3001/rickandmorty`;
-  const onSearch = (input) => {
+  //? version promesas
+  /* const onSearch = (input) => {
     // const url = `${URL}/${input}?key=${apiKey}`;
     // url -> https://rym2.up.railway.app/api/character/2?key=henrystaff
     axios(`${URL}/character/${input}`)
@@ -31,6 +32,23 @@ function App() {
         }
       })
       .catch((error) => window.alert("Ocurrio un error"));
+  }; */
+  //? version async await
+  const onSearch = async (input) => {
+    try {
+      const { status, data } = await axios(`${URL}/character/${input}`);
+      console.log(status);
+      if (status >= 200 && status < 400) {
+        if (data.name) {
+          // setCharacters([...characters, data])
+          setCharacters((oldState) => [...oldState, data]);
+        }
+      } else {
+        window.alert("¡No hay personajes con este ID!");
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const onClose = (id) => {
@@ -38,13 +56,28 @@ function App() {
     setCharacters(filtered);
   };
 
-  const login = ({ email, password }) => {
-    /* if (email === EMAIL && password === PASSWORD) {
-      setAccess(true);
-    } */
+  //? version promesas
+  /* const login = ({ email, password }) => {
+    // if (email === EMAIL && password === PASSWORD) {
+    //   setAccess(true);
+    // }
     axios(`${URL}/login?email=${email}&password=${password}`)
       .then((res) => res.data.access)
-      .then((access) => setAccess(true) && navigate("/home"));
+      .then((access) =>
+        access ? setAccess(true) && navigate("/home") : setAccess(false)
+      );
+  }; */
+
+  //? version async await
+  const login = async ({ email, password }) => {
+    try {
+      const { data } = await axios(
+        `${URL}/login?email=${email}&password=${password}`
+      );
+      data.access ? setAccess(true) && navigate("/home") : setAccess(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //* Si quieren que navegue a Home cuando se monte la app
