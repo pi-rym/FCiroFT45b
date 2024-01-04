@@ -46,7 +46,7 @@ async function getCharById(req, res) {
         location: character.location,
         image: character.image,
       };
-      res.json(personaje);
+      res.status(200).json(personaje);
     } else {
       res.status(404).send("Character not found");
     }
